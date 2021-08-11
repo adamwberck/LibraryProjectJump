@@ -25,6 +25,9 @@ public class UserDaoImp implements UserDao {
 			"select * from patrons";
 	
 	private static String UPDATE_USER = "update";
+	private static String INSERT_USER = "insert into patron "
+			+ "(patron_id, first_name, last_name, username, password, account_frozen) "
+			+ "values(?, ?, ? , ?, ? , ?)";
 	
 	
 	
@@ -78,7 +81,29 @@ public class UserDaoImp implements UserDao {
 		return false;
 		}
 		
-	
+	@Override
+	public boolean addUser(Patron patron) {
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(INSERT_USER)) {
+			
+			pstmt.setInt(1, patron.getId());
+			pstmt.setString(2, patron.getFirstName());
+			pstmt.setString(3, patron.getLastName());
+			pstmt.setString(4, patron.getUsername());
+			pstmt.setString(5, patron.getPassword());
+			pstmt.setBoolean(6, patron.isAccountFrozen());
+			
+			// at least one row added
+			if(pstmt.executeUpdate() > 0) {
+				return true;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 	public List<Patron> getFrozenPatrons(){
 		

@@ -14,6 +14,8 @@ public interface BookDao {
 	
 	public Book getBookByIsbn(String isbn);
 	
+	public List<Book> getBooksByName(String title);
+	
 	public boolean addBook(Book book);
 	
 	public boolean takeOutBook(String isbn);

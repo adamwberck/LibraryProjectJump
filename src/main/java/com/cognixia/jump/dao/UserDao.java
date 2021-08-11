@@ -8,6 +8,7 @@ import com.cognixia.jump.model.User;
 public interface UserDao {
 
 	public boolean updateUser(User user); 
+	public boolean addUser(Patron patron);
 	public List<Patron> getFrozenPatrons();
 	public List<Patron> getAllPatrons();
 	

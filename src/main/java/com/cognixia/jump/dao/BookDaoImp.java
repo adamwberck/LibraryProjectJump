@@ -18,6 +18,7 @@ public class BookDaoImp implements BookDao {
 	private static String SELECT_ALL_CHECKED_BOOKS = "select * from book where rented = true";
 	private static String SELECT_ALL_CHECKED_BOOKS_HISTORY = "select * from book_checkout where patron_id = ?";
 	private static String SELECT_BOOK_BY_ID = "select * from book where isbn = ?";
+	private static String SELECT_BOOKS_BY_NAME = "select * from book where title = ?";
 	private static String INSERT_BOOK = "insert into book(isbn, title, descr, added_to_library) values(?, ?, ?,current_date())";
 	private static String DELETE_BOOK = "delete from book where isbn = ?";
 	private static String UPDATE_BOOK = "update book set title = ?,  descr = ? where isbn = ?";
@@ -128,6 +129,34 @@ public class BookDaoImp implements BookDao {
 		}
 		
 		return book;
+	}
+	
+
+	@Override
+	public List<Book> getBooksByName(String titleSearched) {
+		
+		List<Book> booksOfTitle = new ArrayList<Book>();
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(SELECT_BOOKS_BY_NAME)){
+				pstmt.setString(1, titleSearched);
+				ResultSet rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				
+				String isbn = rs.getString("isbn");
+				String title = rs.getString("title");
+				Date addedToLibrary = rs.getDate("added_to_library");
+				String description = rs.getString("descr");
+				
+				booksOfTitle.add(new Book(isbn, title, addedToLibrary, description));
+				
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return booksOfTitle;
 	}
 
 	

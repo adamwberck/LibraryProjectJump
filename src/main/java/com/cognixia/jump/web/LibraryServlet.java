@@ -125,7 +125,7 @@ public class LibraryServlet extends HttpServlet {
 			dispatcher.forward(request,response);
 			break;
 		case 2:
-			listOf = bookDao.getCheckedOutBooks();	
+			listOf = bookDao.getAllCheckedOutBooks();	
 			response.sendRedirect(redirector);
 			break;
 		case 3:
