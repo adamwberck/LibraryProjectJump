@@ -10,6 +10,8 @@ public interface BookDao {
 	
 	public List<Book> getAllCheckedOutBooks();
 	
+	public List<Book> getHistory(int patronId);
+	
 	public Book getBookByIsbn(String isbn);
 	
 	public boolean addBook(Book book);
