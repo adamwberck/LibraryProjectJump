@@ -1,6 +1,6 @@
 package com.cognixia.jump.model;
 
-public class Patron {
+public class Patron extends User {
 
 	
 	private int id;

@@ -1,6 +1,6 @@
 package com.cognixia.jump.model;
 
-public class Librarian {
+public class Librarian extends User {
 
 	
 	private int id;
