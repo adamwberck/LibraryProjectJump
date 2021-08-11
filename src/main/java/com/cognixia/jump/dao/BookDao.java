@@ -8,6 +8,8 @@ public interface BookDao {
 	
 	public List<Book> getAllBooks();
 	
+	public List<Book> getAllCheckedOutBooks();
+	
 	public Book getBookByIsbn(String isbn);
 	
 	public boolean addBook(Book book);
