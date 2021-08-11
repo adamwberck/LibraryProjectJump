@@ -1,5 +1,6 @@
 package com.cognixia.jump.model;
 
+import java.sql.Date;
 
 public class Book {
 
@@ -7,11 +8,18 @@ public class Book {
 	private String title;
 	private String descr;
 	private boolean rented;
-	private String addedToLibrary;
+	private Date addedToLibrary;
 	
 	
 	
 	
+	public Book(String isbn, String title, Date addedToLibrary, String descr) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.descr = descr;
+		this.addedToLibrary = addedToLibrary;
+	}
 	public String getIsbn() {
 		return isbn;
 	}
@@ -36,10 +44,10 @@ public class Book {
 	public void setRented(boolean rented) {
 		this.rented = rented;
 	}
-	public String getAddedToLibrary() {
+	public Date getAddedToLibrary() {
 		return addedToLibrary;
 	}
-	public void setAddedToLibrary(String addedToLibrary) {
+	public void setAddedToLibrary(Date addedToLibrary) {
 		this.addedToLibrary = addedToLibrary;
 	}
 	
