@@ -21,6 +21,8 @@ public class UserDao {
 	private static String SELECT_ALL_FROZEN_PATRONS =  
 			"select * from patron where account_frozen = true;";
 
+	private static String SELECT_ALL_PATRONS = 
+			"select * from patrons";
 	
 	private static String UPDATE_USER = "update";
 	
@@ -77,6 +79,38 @@ public class UserDao {
 		List<Patron> frozenPatrons = new ArrayList<Patron>();
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_FROZEN_PATRONS);
+				ResultSet rs = pstmt.executeQuery();) {
+			
+			
+			while(rs.next()) {
+				int id = rs.getInt("patron_id");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				String userName = rs.getString("username");
+				String password = rs.getString("password");
+				boolean frozen = rs.getBoolean("account_frozen");
+				
+				frozenPatrons.add(new Patron(id, firstName, lastName, userName, password,
+						frozen));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return frozenPatrons;
+		
+	}
+	
+public static List<Patron> getAllPatrons(){
+		
+		List<Patron> frozenPatrons = new ArrayList<Patron>();
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_PATRONS);
 				ResultSet rs = pstmt.executeQuery();) {
 			
 			
