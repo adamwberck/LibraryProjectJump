@@ -3,16 +3,15 @@
 
 <div class="container">
 	
-	<h1>Product List</h1>
+	<h1>Book List</h1>
 	<br>
 	<br>
 	<table class="table table-striped">
 	
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Item</th>
-				<th>Quantity</th>
+				<th>Isbn</th>
+				<th>Title</th>
 				<th>Description</th>
 				<th>Actions</th>
 			</tr>
