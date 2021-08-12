@@ -18,7 +18,7 @@
 	
 	<div class="container">
 
-		<h1 class="display-4">Library Website</h1>
+		<h1 class="display-6">Library Website</h1>
 	
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
