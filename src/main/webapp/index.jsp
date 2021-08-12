@@ -8,6 +8,12 @@
 		<c:if test="${ user != null }">
 	
 		<p>Welcome</p>
+				<c:if test="${ user.firstName != null }">
+			
+				
+				
+				
+			</c:if>
 		
 	</c:if>
 	
