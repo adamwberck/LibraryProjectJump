@@ -56,6 +56,10 @@
 	
 	</table>
 	
+	<form action =" ./searchForBook" method= "GET">
+		Search By Book Name: <input type= "text" name="value"/>
+		<input type = "submit" value= "Search"/>
+	</form>
 
 </div>
 

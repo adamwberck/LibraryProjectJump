@@ -98,7 +98,7 @@ public class LibraryServlet extends HttpServlet {
 			
 			break;
 			
-		case "/udateBook":
+		case "/updateBook":
 			// updates books title, etc. 
 			updateBook(request,response);
 			break;
