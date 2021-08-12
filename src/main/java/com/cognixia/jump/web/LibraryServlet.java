@@ -127,9 +127,9 @@ public class LibraryServlet extends HttpServlet {
 			listOf = bookDao.getAllBooks();
 			String attribute = "allBooks";
 			//TODO add page redirect
-			redirector = "some.jsp";
+			redirector = "book-list.jsp";
 			
-			request.setAttribute("allBooks", listOf);
+			request.setAttribute(attribute, listOf);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(redirector);
 			dispatcher.forward(request,response);
@@ -184,7 +184,7 @@ public class LibraryServlet extends HttpServlet {
 		boolean freeze = true;
 		
 		// id, firstName, lastName, userName, password, accountfreeze
-		userDao.addUser(new Patron(1, firstName, lastName, username, password, freeze));
+		userDao.addUser(new Patron(id, firstName, lastName, username, password, freeze));
 		
 		response.sendRedirect("/");
 	}
