@@ -1,5 +1,5 @@
 
-
+<%@ include file="header.jsp" %>
 
 <div class="container">
 
@@ -72,3 +72,4 @@
 	</form>
 
 </div>
+<%@ include file="footer.jsp" %>
