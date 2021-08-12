@@ -65,7 +65,7 @@ public class LibraryServlet extends HttpServlet {
 		
 		switch(action) {
 		case "/login":
-			//go to login page
+			response.sendRedirect("./login.jsp");
 			break;
 		
 			
@@ -162,7 +162,7 @@ public class LibraryServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("book-list.jsp");
-		//TODO add page redirect
+		
 		
 		dispatcher.forward(request,response);
 		
@@ -199,8 +199,8 @@ public class LibraryServlet extends HttpServlet {
 		bookDao.addBook(new Book(isbn, title, new java.sql.Date(millis), descr));
 		
 		
-		// TODO Add proper redirect
-		response.sendRedirect(" / ");
+		
+		response.sendRedirect("book-list.jsp");
 	}
 	
 	private void updateBook(HttpServletRequest request, HttpServletResponse response)
@@ -220,7 +220,7 @@ public class LibraryServlet extends HttpServlet {
 		
 		
 		// TODO Add Proper Redirect
-		response.sendRedirect("/");
+		response.sendRedirect("book-list.jsp");
 	}
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response)
@@ -241,7 +241,7 @@ public class LibraryServlet extends HttpServlet {
 					userDao.updateUser(new Librarian(id, username, password));
 				}
 				
-				// TODO Add proper Redirect
+			
 				
 				response.sendRedirect("/");
 				
