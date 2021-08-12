@@ -20,7 +20,7 @@
 	<c:if test = "${ user == null }">
 		
 		<h4>Please Login</h4>
-		<a class="nav-link" href="./login">Login</a> 
+		<a class="nav-link" href="./login.jsp">Login</a> 
 		
 	</c:if>
 
