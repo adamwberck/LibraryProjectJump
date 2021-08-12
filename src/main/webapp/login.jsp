@@ -1,42 +1,73 @@
 
-<%@ include file="header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>The Library</title>
 
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
 
-
-   <section class="login py-5 bg-light">
-         <div class="container">
-         <div class="row g-0">
-             <div class="col-lg-5">
-                 <img src="./keli-snato.jpg" class="img-fluid" alt="">
-             </div>
-             <div class="col-lg-7 text-center py-5">
-                 <h1 class="animate__animated__animate__heartBeat animate_infinite">Welcome!!!!</h1>
-                    <form>
-                        <div class="form-row py-3 pt-5">
-                            <div class="offset-1 col-lg-10">
-                                <input type="text" class="inp px-3" placeholder="Username">
-                            </div>
-                        <div class="form-row">
-                            <div class="offset-1 col-lg-10">
-                                <input type="password" class="inp px-3" placeholder="password">
-                                </div>
-                                <div class="form-row">
-                                    <div class="offset-1 col-lg-10">
-                                        <button class="btn1">sign in</button>
-                                        <button class="btn1">sign up</button>
-                                    </div>
-                                </div>
-                               
-                             </div>
-                          </div>
-                          </form>
-                          </div>
-                          </div>
-                          </div>
-                                
-     </section>  
+</head>
+<body>
 	
+	<div class="container">
 
+		<h1 class="display-6">Library Website</h1>
+	
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="./">Home</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+					aria-controls="navbarNavAltMarkup" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</nav>
 
+         
+       <div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Login</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 login-form-2">
+                    <h3>Sign up</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 <%@ include file="footer.jsp" %>

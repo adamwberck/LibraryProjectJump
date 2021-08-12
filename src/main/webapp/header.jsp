@@ -30,10 +30,12 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<c:if test="${ user != null }">
 					<div class="navbar-nav">
 						<a class="nav-link" href="./listAllBooks">Library</a> 
 						
 					</div>
+					</c:if>
 				</div>
 			</div>
 		</nav>
