@@ -26,8 +26,37 @@ public class UserDaoImp implements UserDao {
 	
 	private static String UPDATE_USER = "update";
 	
+	private static String ADD_USER = "insert into patron values(first_name=?, last_name=?,username=?,password=?,account_frozen=?)";
 	
 	
+	@Override
+	public boolean addPatron(Patron patron) {
+		// TODO Auto-generated method stub
+		try(PreparedStatement pstmt = conn.prepareStatement(UPDATE_USER);
+				){
+			
+				pstmt.setInt(1, patron.getId());
+				pstmt.setString(2, patron.getFirstName());
+				pstmt.setString(3, patron.getLastName());
+				pstmt.setString(4, patron.getUsername());
+				pstmt.setString(5, patron.getPassword());
+				pstmt.setBoolean(6, patron.isAccountFrozen());
+				pstmt.setString(7, patron.getUsername());
+			
+			
+			
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	//  Update their name, username, and password
 	@Override
 	public boolean updateUser(User user) {
@@ -143,6 +172,15 @@ public List<Patron> getAllPatrons(){
 		return frozenPatrons;
 		
 	}
+
+
+
+
+
+
+
+
+
 
 	
 	

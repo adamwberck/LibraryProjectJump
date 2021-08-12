@@ -10,6 +10,7 @@ public interface UserDao {
 	public boolean updateUser(User user); 
 	public List<Patron> getFrozenPatrons();
 	public List<Patron> getAllPatrons();
+	public boolean addPatron(Patron patron);
 	
 	
 	
