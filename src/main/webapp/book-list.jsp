@@ -17,7 +17,7 @@
 			</tr>
 		</thead>
 		
-		<tbody>
+		<tbody class="overflow-auto">
 
 			<c:forEach var="book" items="${ allBooks }">
 				

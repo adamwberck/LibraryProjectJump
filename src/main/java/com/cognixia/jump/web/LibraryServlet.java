@@ -116,8 +116,8 @@ public class LibraryServlet extends HttpServlet {
 		case 1:
 			listOf = bookDao.getAllBooks();
 			attribute = "allBooks";
-			//TODO add page redirect
-			redirector = "some.jsp";
+
+			redirector = "book-list.jsp";
 			
 			request.setAttribute("allBooks", listOf);
 			
