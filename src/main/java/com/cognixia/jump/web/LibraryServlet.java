@@ -2,7 +2,10 @@ package com.cognixia.jump.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -25,6 +28,7 @@ public class LibraryServlet extends HttpServlet {
        
 	private UserDaoImp userDao;
 	private BookDaoImp bookDao;
+	private static final String PATTERN = "^[0-9]{10}";
 	
 	
 	public void init(ServletConfig config) throws ServletException {
@@ -79,6 +83,11 @@ public class LibraryServlet extends HttpServlet {
 		case "/listAllBooks":
 			//go to library page
 			listBooks(request, response,1);
+			break;
+			
+		case "/listUpdateBooks":
+			//go to library page but with searched list
+			listBooks(request, response, 4);
 			break;
 		
 		case "/searchForBook":
@@ -145,20 +154,32 @@ public class LibraryServlet extends HttpServlet {
 		}
 	}
 	
+	@SuppressWarnings("null")
 	private void searchForBook(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
+		
+		
 		// TODO Create regex, implement getBookByName
 		String incomingValue = request.getParameter("value");
-		Book searchedBookById = null;
-		List<Book> searchedByTitle = null;
+		List<Book> searchedBy = null;
 		
-		if(incomingValue.equals("Regex-Expression")){
-			searchedBookById = bookDao.getBookByIsbn(incomingValue);
-			request.setAttribute("searchedBook", searchedBookById);
+		
+		Pattern pattern = Pattern.compile(PATTERN);
+		Matcher matchRegex = pattern.matcher(incomingValue);
+		
+		if(matchRegex.matches()){
+			Book foundBook = bookDao.getBookByIsbn(incomingValue);
+			
+			if(foundBook != null) {
+				searchedBy = new ArrayList<Book>();
+				searchedBy.add(foundBook);
+			}
 		}else {
-			searchedByTitle = bookDao.getBooksByName(incomingValue);
-			request.setAttribute("searchedTitle", searchedByTitle);
+			searchedBy = bookDao.getBooksByName(incomingValue);
+			
 		}
+		
+		request.setAttribute("allBooks", searchedBy);
 		
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("book-list.jsp");
