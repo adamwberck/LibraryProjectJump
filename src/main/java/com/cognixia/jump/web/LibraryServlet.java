@@ -22,6 +22,7 @@ import com.cognixia.jump.dao.UserDaoImp;
 import com.cognixia.jump.model.Book;
 import com.cognixia.jump.model.Librarian;
 import com.cognixia.jump.model.Patron;
+import com.cognixia.jump.model.User;
 
 @WebServlet("/")
 public class LibraryServlet extends HttpServlet {
@@ -210,12 +211,12 @@ public class LibraryServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		Patron patron = userDao.getPatron((String)session.getAttribute("username"), (String)session.getAttribute("password"));
-		System.out.println(patron.toString());
+		User user = userDao.getUser((String)session.getAttribute("username"), (String)session.getAttribute("password"));
+		System.out.println(user.toString());
 		System.out.println(session.getAttribute("loggedIn").toString());
 		
 		request.setAttribute("user", session.getAttribute("loggedIn"));
-		request.setAttribute("patron", patron);
+		request.setAttribute("checkUserType", user);
 		
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("index.jsp");
