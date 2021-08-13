@@ -80,14 +80,6 @@ public class LibraryServlet extends HttpServlet {
 			logOut(request,response);
 			break;
 			
-		case "/unfreezeUser":
-			unfreezeUser(request,response);
-			break;
-			
-		case "/returnBook":
-			returnBook(request,response);
-			break;
-			
 		case "/home":
 			loadHome(request,response);
 			break;
@@ -216,22 +208,15 @@ public class LibraryServlet extends HttpServlet {
 	private void loadHome(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		
-		List<Patron> listOf = null;
-		listOf = userDao.getAllPatrons();
-		request.setAttribute("frozenUsers", listOf);
 		
-		List<Book> listOfBooks = null;
-		listOfBooks = bookDao.getAllCheckedOutBooks();
-		request.setAttribute("checkedBooks", listOfBooks);
+		HttpSession session = request.getSession();
 		
-
-		Patron patron = userDao.getPatron((String)session.getAttribute("username"), (String)session.getAttribute("password"));
-		System.out.println(patron.toString());
+		User user = userDao.getUser((String)session.getAttribute("username"), (String)session.getAttribute("password"));
+		System.out.println(user.toString());
 		System.out.println(session.getAttribute("loggedIn").toString());
-
 		
 		request.setAttribute("user", session.getAttribute("loggedIn"));
-		request.setAttribute("patron", patron);
+		request.setAttribute("checkUserType", user);
 		
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("index.jsp");
@@ -362,26 +347,6 @@ public class LibraryServlet extends HttpServlet {
 				response.sendRedirect("/");
 				
 			}
-	
-	private void unfreezeUser(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		
-		int id = Integer.parseInt(request.getParameter("id"));
-	
-		userDao.unfreezeUser(id);
-		
-		response.sendRedirect("/home");
-	}
-	
-	private void returnBook(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		
-		String isbn = request.getParameter("id");
-	
-		bookDao.returnBook(isbn);
-		
-		response.sendRedirect("/home");
-	}
 	
 	
 
