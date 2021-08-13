@@ -6,7 +6,7 @@
 
 <div class="container">
 
-	<% String formType = "update"; %>
+	<% String formType = "UpdateBook"; %>
 
 
 	<c:if test="${ book != null }">
@@ -15,7 +15,7 @@
 		
 	</c:if>
 	
-	<c:if test = "${ product == null }">
+	<c:if test = "${ book == null }">
 		
 		<h1>Add New Book</h1>
 		
