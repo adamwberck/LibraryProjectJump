@@ -233,7 +233,7 @@ public class LibraryServlet extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String loggedIn = "true";
+		boolean loggedIn = true;
 		if(userDao.userExists(username, password)) {
 			
 			HttpSession session = request.getSession();
@@ -254,13 +254,9 @@ public class LibraryServlet extends HttpServlet {
 			throws ServletException, IOException{
 	
 			HttpSession session = request.getSession();
-			session.removeAttribute("loggedIn");
+			session.setAttribute("loggedIn",false);
 			
-			RequestDispatcher dispatcher 
-			= request.getRequestDispatcher("index.jsp");
-			
-			
-			dispatcher.forward(request,response);
+			response.sendRedirect("index.jsp");
 	
 	}
 	

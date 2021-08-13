@@ -1,17 +1,15 @@
-<% boolean user = false; 
-if(session.getAttribute("loggedIn")==null){
-	user = false;
-	}else{user = true;}
-%>
+
+<%boolean user = false; %>
+<% System.out.println(session.getAttribute("loggedIn").toString()); %>
+<% if(session.getAttribute("loggedIn").toString()=="true"){user = true;} %>
+<% System.out.println(session.getAttribute("loggedIn").toString()); %>
+
 
 <%@ include file="header.jsp" %>
 
 <div class="container">
 
-	
-	
-	
-		<c:if test= "${user}">
+		<c:if test="<%= user %>">
 	
 		<h2>Welcome to the Library</h2>
 		
@@ -29,7 +27,7 @@ if(session.getAttribute("loggedIn")==null){
 	</c:if>
 	
 	
-	<c:if test = "${ !user }">
+	<c:if test="<%= !user %>">
 		<h2 class="text-center">Welcome to the Library</h2>
 		<h4 >Please Login</h4>
 		<a class="nav-link" href="./login.jsp">Login</a> 
