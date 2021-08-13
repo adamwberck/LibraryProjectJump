@@ -202,21 +202,12 @@ public class LibraryServlet extends HttpServlet {
 	
 	private void loadHome(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-		
-		
-		HttpSession session = request.getSession();
-		
-		System.out.println(session.getAttribute("loggedIn").toString());
-		
-		request.setAttribute("user", session.getAttribute("loggedIn"));
-		
+	
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("index.jsp");
 		
 		
 		dispatcher.forward(request,response);
-		
-		
 	
 	}
 	
@@ -242,7 +233,7 @@ public class LibraryServlet extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		boolean loggedIn = true;
+		String loggedIn = "true";
 		if(userDao.userExists(username, password)) {
 			
 			HttpSession session = request.getSession();
@@ -251,18 +242,25 @@ public class LibraryServlet extends HttpServlet {
 			session.setAttribute("loggedIn", loggedIn);
 			response.sendRedirect("./loadHome");
 		}
+		else {
+			response.sendRedirect("./login.jsp");
+		}
+		
+	
 	
 	}
 	
 	private void logOut(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 	
-		boolean loggedIn = false;
-			
 			HttpSession session = request.getSession();
-			session.setAttribute("loggedIn", loggedIn);
-			response.sendRedirect("./loadHome");
-		
+			session.removeAttribute("loggedIn");
+			
+			RequestDispatcher dispatcher 
+			= request.getRequestDispatcher("index.jsp");
+			
+			
+			dispatcher.forward(request,response);
 	
 	}
 	
