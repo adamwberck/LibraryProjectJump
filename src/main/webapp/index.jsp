@@ -1,8 +1,10 @@
 
 <%boolean user = false; %>
-<% System.out.println(session.getAttribute("loggedIn").toString()); %>
-<% if(session.getAttribute("loggedIn").toString()=="true"){user = true;} %>
-<% System.out.println(session.getAttribute("loggedIn").toString()); %>
+<% try {System.out.println(session.getAttribute("loggedIn").toString());
+	if(session.getAttribute("loggedIn").toString()=="true"){user = true;}
+	System.out.println(session.getAttribute("loggedIn").toString());}
+catch(Exception e){
+e.printStackTrace();}%>
 
 
 <%@ include file="header.jsp" %>
