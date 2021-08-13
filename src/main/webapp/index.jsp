@@ -26,6 +26,8 @@ e.printStackTrace();}%>
 			Test Connection
 			
 		</c:if>
+
+		<%@ include file="booksTakenOut.jsp" %>
 		</div>
 	
 			

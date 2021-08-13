@@ -19,7 +19,10 @@ public class UserDaoImp implements UserDao {
 	// List Frozen Patrons 
 	
 	private static String SELECT_ALL_FROZEN_PATRONS =  
-			"select * from patron where account_frozen = true;";
+			"select * from patron where account_frozen = true";
+	
+	private static String SELECT_FROZEN_PATRON =  
+			"update patron set account_frozen = 0 where patron_id = ?";
 
 	private static String SELECT_ALL_PATRONS = 
 			"select * from patrons";
@@ -105,6 +108,25 @@ public class UserDaoImp implements UserDao {
 		
 		return false;
 	}
+	
+	@Override
+	public boolean unfreezeUser(int id) {
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(SELECT_FROZEN_PATRON);) {
+			
+			pstmt.setInt(1, id);
+			
+			if(pstmt.execute()) {
+				return true;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	
 	@Override
 	public boolean userExists(String username, String password) {

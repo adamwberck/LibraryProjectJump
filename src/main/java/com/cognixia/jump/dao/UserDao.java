@@ -11,6 +11,7 @@ public interface UserDao {
 	public boolean updateUser(User user); 
 	public boolean addUser(Patron patron);
 	public boolean userExists(String username, String password);
+	public boolean unfreezeUser(int id);
 	public List<Patron> getFrozenPatrons();
 	public List<Patron> getAllPatrons();
 	

@@ -20,6 +20,8 @@ public interface BookDao {
 	
 	public boolean takeOutBook(String isbn);
 	
+	public boolean returnBook(String isbn);
+	
 	public boolean updateBook(Book book);
 	
 	public boolean deleteBook(String isbn);

@@ -23,6 +23,8 @@ public class BookDaoImp implements BookDao {
 	private static String DELETE_BOOK = "delete from book where isbn = ?";
 	private static String UPDATE_BOOK = "update book set title = ?,  descr = ? where isbn = ?";
 	private static String TAKE_OUT_BOOK = "update book set rented = true where isbn = ?";
+	private static String RETURN_BOOK = "update book set rented = false where isbn = ?";
+	
 
 	
 	@Override
@@ -227,6 +229,25 @@ public class BookDaoImp implements BookDao {
 	public boolean takeOutBook(String isbn) {
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(TAKE_OUT_BOOK)) {
+
+			pstmt.setString(1, isbn);
+
+			// at least one row updated
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public boolean returnBook(String isbn) {
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(RETURN_BOOK)) {
 
 			pstmt.setString(1, isbn);
 

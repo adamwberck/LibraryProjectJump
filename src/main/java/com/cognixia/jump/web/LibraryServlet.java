@@ -22,6 +22,7 @@ import com.cognixia.jump.dao.UserDaoImp;
 import com.cognixia.jump.model.Book;
 import com.cognixia.jump.model.Librarian;
 import com.cognixia.jump.model.Patron;
+import com.cognixia.jump.model.User;
 
 @WebServlet("/")
 public class LibraryServlet extends HttpServlet {
@@ -77,6 +78,14 @@ public class LibraryServlet extends HttpServlet {
 			break;
 		case "/logOUt":
 			logOut(request,response);
+			break;
+			
+		case "/unfreezeUser":
+			unfreezeUser(request,response);
+			break;
+			
+		case "/returnBook":
+			returnBook(request,response);
 			break;
 			
 		case "/home":
@@ -207,12 +216,19 @@ public class LibraryServlet extends HttpServlet {
 	private void loadHome(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		
+		List<Patron> listOf = null;
+		listOf = userDao.getAllPatrons();
+		request.setAttribute("frozenUsers", listOf);
 		
-		HttpSession session = request.getSession();
+		List<Book> listOfBooks = null;
+		listOfBooks = bookDao.getAllCheckedOutBooks();
+		request.setAttribute("checkedBooks", listOfBooks);
 		
+
 		Patron patron = userDao.getPatron((String)session.getAttribute("username"), (String)session.getAttribute("password"));
 		System.out.println(patron.toString());
 		System.out.println(session.getAttribute("loggedIn").toString());
+
 		
 		request.setAttribute("user", session.getAttribute("loggedIn"));
 		request.setAttribute("patron", patron);
@@ -346,6 +362,26 @@ public class LibraryServlet extends HttpServlet {
 				response.sendRedirect("/");
 				
 			}
+	
+	private void unfreezeUser(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+	
+		userDao.unfreezeUser(id);
+		
+		response.sendRedirect("/home");
+	}
+	
+	private void returnBook(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		String isbn = request.getParameter("id");
+	
+		bookDao.returnBook(isbn);
+		
+		response.sendRedirect("/home");
+	}
 	
 	
 
