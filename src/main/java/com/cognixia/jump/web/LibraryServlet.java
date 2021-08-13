@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.dao.BookDaoImp;
@@ -68,11 +69,19 @@ public class LibraryServlet extends HttpServlet {
 		System.out.println(action);
 		
 		switch(action) {
-		case "/login":
+		case "/loginPage":
 			response.sendRedirect("./login.jsp");
 			break;
-		
+		case "/loginUser":
+			loginUser(request,response);
+			break;
+		case "/logOUt":
+			logOut(request,response);
+			break;
 			
+		case "/home":
+			loadHome(request,response);
+			break;
 		case "/listCheckoutBooks":
 			listBooks(request,response, 2);
 			break;
@@ -118,7 +127,7 @@ public class LibraryServlet extends HttpServlet {
 		default:
 			//redirect the url: localhost:8080/library
 			// display index.js page
-			response.sendRedirect("/");
+			response.sendRedirect("./");
 			break;
 		}
 		
@@ -191,6 +200,26 @@ public class LibraryServlet extends HttpServlet {
 	
 	}
 	
+	private void loadHome(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+		
+		HttpSession session = request.getSession();
+		
+		System.out.println(session.getAttribute("loggedIn").toString());
+		
+		request.setAttribute("user", session.getAttribute("loggedIn"));
+		
+		RequestDispatcher dispatcher 
+		= request.getRequestDispatcher("index.jsp");
+		
+		
+		dispatcher.forward(request,response);
+		
+		
+	
+	}
+	
 	private void addUser(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		
@@ -200,13 +229,41 @@ public class LibraryServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		int id = 1;
 		boolean freeze = true;
 		
 		// id, firstName, lastName, userName, password, accountfreeze
-		userDao.addUser(new Patron(id, firstName, lastName, username, password, freeze));
+		userDao.addUser(new Patron( firstName, lastName, username, password, freeze));
 		
-		response.sendRedirect("/");
+		response.sendRedirect("./login.jsp");
+	}
+	
+	private void loginUser(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		boolean loggedIn = true;
+		if(userDao.userExists(username, password)) {
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("username", username);
+			session.setAttribute("password", password);
+			session.setAttribute("loggedIn", loggedIn);
+			response.sendRedirect("./loadHome");
+		}
+	
+	}
+	
+	private void logOut(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+	
+		boolean loggedIn = false;
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedIn", loggedIn);
+			response.sendRedirect("./loadHome");
+		
+	
 	}
 	
 	private void addBook(HttpServletRequest request, HttpServletResponse response)
@@ -256,7 +313,7 @@ public class LibraryServlet extends HttpServlet {
 				
 				
 				if(firstName != null) {
-					userDao.updateUser(new Patron(id, firstName, lastName,username,
+					userDao.updateUser(new Patron( firstName, lastName,username,
 							password, accountFrozen));
 				}else {
 					userDao.updateUser(new Librarian(id, username, password));

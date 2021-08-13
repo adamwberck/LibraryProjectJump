@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -17,53 +16,43 @@
 </head>
 <body>
 	
-	<div class="container">
+	<div class="container-fluid">
 
-		<h1 class="display-6">Library Website</h1>
-	
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="./">Home</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-					aria-controls="navbarNavAltMarkup" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		</nav>
-
+		<h1 class="text-center">Welcome to the Library</h1>
          
        <div class="container login-container">
             <div class="row">
                 <div class="col-md-6 login-form-1">
                     <h3>Login</h3>
-                    <form>
+                    <form action="./loginUser" method="get">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                            <input type="text" class="form-control" placeholder="Username *" value="" name="username" />
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                            <input type="password" class="form-control" placeholder="Password *" value="" name="password"/>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Login" />
-                        </div>
-                        <div class="form-group">
-                            <a href="#" class="ForgetPwd">Forget Password?</a>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-6 login-form-2">
                     <h3>Sign up</h3>
-                    <form>
+                    <form action="./addUser" method="get">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                            <input type="text" class="form-control" placeholder="Username *" value="" name="username"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                            <input type="password" class="form-control" placeholder="Password *" value="" name="password" />
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-control" placeholder="First Name" value="" name="firstName" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" />
+                            <input type="text" class="form-control" placeholder="Last Name" value=""name="lastName" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Sign Up" />
                         </div>
                     </form>
                 </div>

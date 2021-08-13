@@ -30,9 +30,13 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<c:if test="${ user != null }">
+				<c:if test="${ !user.user }">
 					<div class="navbar-nav">
 						<a class="nav-link" href="./listAllBooks">Library</a> 
+						
+					</div>
+					<div class="navbar-nav">
+						<a class="nav-link" href="./logOut">Log Off</a> 
 						
 					</div>
 					</c:if>

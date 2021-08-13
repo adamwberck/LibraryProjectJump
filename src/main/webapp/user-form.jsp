@@ -3,7 +3,7 @@
 
 <div class="container">
 
-	<% String formType = "update"; %>
+	<% String formType = "updateUser"; %>
 
 
 	<c:if test="${ user != null }">
@@ -16,7 +16,7 @@
 		
 		<h1>Create new user</h1>
 		
-		<% formType = "add"; %>
+		<% formType = "addUser"; %>
 		
 	</c:if>
 	

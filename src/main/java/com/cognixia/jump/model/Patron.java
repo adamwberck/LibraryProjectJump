@@ -13,9 +13,8 @@ public class Patron extends User {
 	
 	
 	
-	public Patron(int id, String firstName, String lastName, String username, String password, boolean accountFrozen) {
+	public Patron( String firstName, String lastName, String username, String password, boolean accountFrozen) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;

@@ -26,10 +26,12 @@ public class UserDaoImp implements UserDao {
 	
 	private static String UPDATE_USER = "update";
 	private static String INSERT_USER = "insert into patron "
-			+ "(patron_id, first_name, last_name, username, password, account_frozen) "
-			+ "values(?, ?, ? , ?, ? , ?)";
+			+ "(first_name, last_name, username, password, account_frozen) "
+			+ "values( ?, ? , ?, ? , ?)";
 	
-	
+	private static String PATRON_EXISTS = "select * from patron where username = ?  and password = ?";
+	private static String LIB_EXISTS = "select * from librarian where username = ?  and password = ?";
+
 	
 	//  Update their name, username, and password
 	@Override
@@ -86,12 +88,11 @@ public class UserDaoImp implements UserDao {
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(INSERT_USER)) {
 			
-			pstmt.setInt(1, patron.getId());
-			pstmt.setString(2, patron.getFirstName());
-			pstmt.setString(3, patron.getLastName());
-			pstmt.setString(4, patron.getUsername());
-			pstmt.setString(5, patron.getPassword());
-			pstmt.setBoolean(6, patron.isAccountFrozen());
+			pstmt.setString(1, patron.getFirstName());
+			pstmt.setString(2, patron.getLastName());
+			pstmt.setString(3, patron.getUsername());
+			pstmt.setString(4, patron.getPassword());
+			pstmt.setBoolean(5, patron.isAccountFrozen());
 			
 			// at least one row added
 			if(pstmt.executeUpdate() > 0) {
@@ -104,6 +105,33 @@ public class UserDaoImp implements UserDao {
 		
 		return false;
 	}
+	
+	@Override
+	public boolean userExists(String username, String password) {
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(PATRON_EXISTS); PreparedStatement pstmt2 = conn.prepareStatement(LIB_EXISTS);) {
+			
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt2.setString(1, username);
+			pstmt2.setString(2, password);
+			
+			// at least one row added
+			if(pstmt.execute()) {
+				return true;
+			}
+			else if(pstmt2.execute()) {
+				return true;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	
 	
 	public List<Patron> getFrozenPatrons(){
 		
@@ -121,7 +149,7 @@ public class UserDaoImp implements UserDao {
 				String password = rs.getString("password");
 				boolean frozen = rs.getBoolean("account_frozen");
 				
-				frozenPatrons.add(new Patron(id, firstName, lastName, userName, password,
+				frozenPatrons.add(new Patron( firstName, lastName, userName, password,
 						frozen));
 				
 			}
@@ -153,7 +181,7 @@ public List<Patron> getAllPatrons(){
 				String password = rs.getString("password");
 				boolean frozen = rs.getBoolean("account_frozen");
 				
-				frozenPatrons.add(new Patron(id, firstName, lastName, userName, password,
+				frozenPatrons.add(new Patron( firstName, lastName, userName, password,
 						frozen));
 				
 			}

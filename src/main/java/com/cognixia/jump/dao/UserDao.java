@@ -9,6 +9,7 @@ public interface UserDao {
 
 	public boolean updateUser(User user); 
 	public boolean addUser(Patron patron);
+	public boolean userExists(String username, String password);
 	public List<Patron> getFrozenPatrons();
 	public List<Patron> getAllPatrons();
 	

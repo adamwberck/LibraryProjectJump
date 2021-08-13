@@ -5,21 +5,15 @@
 	
 	<h2>Welcome to the Library</h2>
 	
-		<c:if test="${ user != null }">
+		<c:if test="${ user.user}">
 	
 		<p>Welcome</p>
-				<c:if test="${ user.firstName != null }">
 			
-				
-				
-				
-			</c:if>
-		
 	</c:if>
 	
-	<c:if test = "${ user == null }">
-		
-		<h4>Please Login</h4>
+	<c:if test = "${ !(user.user) }">
+		<h1>${ !(user.user) }</h1>
+		<h4 class="text-center" >Please Login</h4>
 		<a class="nav-link" href="./login.jsp">Login</a> 
 		
 	</c:if>
