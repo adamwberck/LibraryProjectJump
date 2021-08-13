@@ -116,10 +116,14 @@ public class LibraryServlet extends HttpServlet {
 			
 			break;
 			
-		case "/udateBook":
+		case "/goToUpdateBookForm":
+			// Moves user to update book page 
+			goToUpdateBookForm(request,response);
+			break;
+			
+		case "UpdateBook":
 			// updates books title, etc. 
 			updateBook(request,response);
-			break;
 		case "/updateUser":
 			// updates the user in whatever capacity username, password, name, freeze
 			updateUser(request,response);
@@ -281,6 +285,19 @@ public class LibraryServlet extends HttpServlet {
 		response.sendRedirect("book-list.jsp");
 	}
 	
+	
+	private void goToUpdateBookForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		String isbn = request.getParameter("isbn");
+		
+		Book book = bookDao.getBookByIsbn(isbn);
+		
+		request.setAttribute("book", book);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("book-form.jsp");
+		dispatcher.forward(request, response);
+		
+	}
 	private void updateBook(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		

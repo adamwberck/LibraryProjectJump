@@ -12,7 +12,7 @@
 		
 	</c:if>
 	
-	<c:if test = "${ product == null }">
+	<c:if test = "${ book == null }">
 		
 		<h1>Add New Book</h1>
 		
