@@ -41,11 +41,11 @@ e.printStackTrace();}%>
 					
 					<td>
 						
-						<a href="goToUpdateBookForm?id=<c:out value='${ book.isbn }' />">
+						<a href="goToUpdateBookForm?isbn=<c:out value='${ book.isbn }' />">
 							<button class="btn btn-primary">Edit</button>
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="delete?id=<c:out value='${ book.isbn }' />">
+						<a href="delete?isbn=<c:out value='${ book.isbn }' />">
 						
 							<button class="btn btn-danger">Delete</button>
 							
