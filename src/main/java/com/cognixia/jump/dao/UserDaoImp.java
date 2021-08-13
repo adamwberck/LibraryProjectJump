@@ -199,26 +199,37 @@ public List<Patron> getAllPatrons(){
 	}
 
 @Override
-public Patron getPatron(String username, String password) {
+public User getUser(String username, String password) {
 	// TODO Auto-generated method stub
 	try(PreparedStatement pstmt = conn.prepareStatement(PATRON_EXISTS);
-			) {
+			PreparedStatement pstmtLib = conn.prepareStatement(LIB_EXISTS);			) {
 		pstmt.setString(1, username);
 		pstmt.setString(2, password);
+		pstmtLib.setString(1, username);
+		pstmtLib.setString(2, password);
 		
 		ResultSet rs = pstmt.executeQuery();
 		
+		System.out.println("Checking.......");
 		while(rs.next()) {
-			int id = rs.getInt("patron_id");
 			String firstName = rs.getString("first_name");
 			String lastName = rs.getString("last_name");
 			String userName = rs.getString("username");
 			String returnedPassword = rs.getString("password");
 			boolean frozen = rs.getBoolean("account_frozen");
-			
 			return new Patron( firstName, lastName, userName, returnedPassword,
 					frozen);
 			
+			
+		}
+		
+		ResultSet rs2 = pstmtLib.executeQuery();
+		while(rs2.next()) {
+			System.out.println("Query Accepted");
+			int id = Integer.parseInt(rs2.getString("librarian_id"));
+			String userName = rs2.getString("username");
+			String returnedPassword = rs2.getString("password");	
+			return new Librarian(id, userName, returnedPassword);
 		}
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
