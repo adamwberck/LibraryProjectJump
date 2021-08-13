@@ -210,9 +210,12 @@ public class LibraryServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		Patron patron = userDao.getPatron((String)session.getAttribute("username"), (String)session.getAttribute("password"));
+		System.out.println(patron.toString());
 		System.out.println(session.getAttribute("loggedIn").toString());
 		
 		request.setAttribute("user", session.getAttribute("loggedIn"));
+		request.setAttribute("patron", patron);
 		
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("index.jsp");
@@ -249,11 +252,13 @@ public class LibraryServlet extends HttpServlet {
 		boolean loggedIn = true;
 		if(userDao.userExists(username, password)) {
 			
+		
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("username", username);
 			session.setAttribute("password", password);
 			session.setAttribute("loggedIn", loggedIn);
-			response.sendRedirect("./loadHome");
+			response.sendRedirect("./home");
 		}
 	
 	}
