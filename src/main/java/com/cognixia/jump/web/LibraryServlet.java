@@ -209,15 +209,25 @@ public class LibraryServlet extends HttpServlet {
 			throws ServletException, IOException{
 		
 		
+		
+		
 		HttpSession session = request.getSession();
 		
 		User user = userDao.getUser((String)session.getAttribute("username"), (String)session.getAttribute("password"));
 		System.out.println(user.toString());
 		System.out.println(session.getAttribute("loggedIn").toString());
+		List<Book> allBooks = null;
+		
+		if(Patron.class.isInstance(user)) {
+			Patron patron = (Patron) user;
+			allBooks = bookDao.getAllYourCheckedOutBooks(patron.getId());
+			request.setAttribute("allBooks", allBooks);
+		} 
+		
 		
 		request.setAttribute("user", session.getAttribute("loggedIn"));
 		request.setAttribute("checkUserType", user);
-		
+
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("index.jsp");
 		

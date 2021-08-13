@@ -16,6 +16,7 @@ public class BookDaoImp implements BookDao {
 	
 	private static String SELECT_ALL_BOOKS = "select * from book";
 	private static String SELECT_ALL_CHECKED_BOOKS = "select * from book where rented = true";
+	private static String SELECT_ALL_YOUR_CHECKED_BOOKS = "select * from book_checkout where patron_id = ? and returned = null";
 	private static String SELECT_ALL_CHECKED_BOOKS_HISTORY = "select * from book_checkout where patron_id = ?";
 	private static String SELECT_BOOK_BY_ID = "select * from book where isbn = ?";
 	private static String SELECT_BOOKS_BY_NAME = "select * from book where title = ?";
@@ -69,6 +70,32 @@ public class BookDaoImp implements BookDao {
 				String description = rs.getString("descr");
 				
 				allCheckedBooks.add(new Book(isbn, title, addedToLibrary, description));
+				
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return allCheckedBooks;
+	}
+	
+	@Override
+	public List<Book> getAllYourCheckedOutBooks(int patron_id) {
+		
+		List<Book> allCheckedBooks = new ArrayList<Book>();
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_YOUR_CHECKED_BOOKS);) {
+			
+			pstmt.setInt(1, patron_id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				String isbn = rs.getString("isbn");
+				
+				
+				allCheckedBooks.add(getBookByIsbn(isbn));
 				
 			}
 			
