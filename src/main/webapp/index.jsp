@@ -1,5 +1,12 @@
 
-<% boolean user = true; %>
+<%boolean user = false; %>
+<% try {System.out.println(session.getAttribute("loggedIn").toString());
+	if(session.getAttribute("loggedIn").toString()=="true"){user = true;}
+	System.out.println(session.getAttribute("loggedIn").toString());}
+catch(Exception e){
+e.printStackTrace();}%>
+
+
 <%@ include file="header.jsp" %>
 
 <div class="container">
@@ -15,7 +22,10 @@
 			</form>
 		<div class="container">
 		<h3>Heres your info</h3>
-		
+		<c:if test= "${patron != null}">
+			Test Connection
+			
+		</c:if>
 		</div>
 	
 			
