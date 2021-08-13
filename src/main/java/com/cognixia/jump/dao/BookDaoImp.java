@@ -19,7 +19,7 @@ public class BookDaoImp implements BookDao {
 	private static String SELECT_ALL_YOUR_CHECKED_BOOKS = "select * from book_checkout where patron_id = ? and returned = null";
 	private static String SELECT_ALL_CHECKED_BOOKS_HISTORY = "select * from book_checkout where patron_id = ?";
 	private static String SELECT_BOOK_BY_ID = "select * from book where isbn = ?";
-	private static String SELECT_BOOKS_BY_NAME = "select * from book where title = ?";
+	private static String SELECT_BOOKS_BY_NAME = "select * from book where title like ?";
 	private static String INSERT_BOOK = "insert into book(isbn, title, descr, added_to_library) values(?, ?, ?,current_date())";
 	private static String DELETE_BOOK = "delete from book where isbn = ?";
 	private static String UPDATE_BOOK = "update book set title = ?,  descr = ? where isbn like ?";
