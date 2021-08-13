@@ -116,10 +116,14 @@ public class LibraryServlet extends HttpServlet {
 			
 			break;
 			
-		case "/udateBook":
+		case "/goToUpdateBookForm":
+			// Moves user to update book page 
+			goToUpdateBookForm(request,response);
+			break;
+			
+		case "UpdateBook":
 			// updates books title, etc. 
 			updateBook(request,response);
-			break;
 		case "/updateUser":
 			// updates the user in whatever capacity username, password, name, freeze
 			updateUser(request,response);
@@ -202,12 +206,21 @@ public class LibraryServlet extends HttpServlet {
 	
 	private void loadHome(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
-	
+		
+		
+		HttpSession session = request.getSession();
+		
+		System.out.println(session.getAttribute("loggedIn").toString());
+		
+		request.setAttribute("user", session.getAttribute("loggedIn"));
+		
 		RequestDispatcher dispatcher 
 		= request.getRequestDispatcher("index.jsp");
 		
 		
 		dispatcher.forward(request,response);
+		
+		
 	
 	}
 	
@@ -242,21 +255,18 @@ public class LibraryServlet extends HttpServlet {
 			session.setAttribute("loggedIn", loggedIn);
 			response.sendRedirect("./loadHome");
 		}
-		else {
-			response.sendRedirect("./login.jsp");
-		}
-		
-	
 	
 	}
 	
 	private void logOut(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 	
-			HttpSession session = request.getSession();
-			session.setAttribute("loggedIn",false);
+		boolean loggedIn = false;
 			
-			response.sendRedirect("index.jsp");
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedIn", loggedIn);
+			response.sendRedirect("./loadHome");
+		
 	
 	}
 	
@@ -275,6 +285,19 @@ public class LibraryServlet extends HttpServlet {
 		response.sendRedirect("book-list.jsp");
 	}
 	
+	
+	private void goToUpdateBookForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		String isbn = request.getParameter("isbn");
+		
+		Book book = bookDao.getBookByIsbn(isbn);
+		
+		request.setAttribute("book", book);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("book-form.jsp");
+		dispatcher.forward(request, response);
+		
+	}
 	private void updateBook(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
