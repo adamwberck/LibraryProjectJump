@@ -41,7 +41,7 @@ e.printStackTrace();}%>
 					
 					<td>
 						
-						<a href="edit?id=<c:out value='${ book.isbn }' />">
+						<a href="goToUpdateBookForm?id=<c:out value='${ book.isbn }' />">
 							<button class="btn btn-primary">Edit</button>
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
