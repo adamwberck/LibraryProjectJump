@@ -170,6 +170,7 @@ public List<Patron> getAllPatrons(){
 		List<Patron> frozenPatrons = new ArrayList<Patron>();
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_PATRONS);
+				
 				ResultSet rs = pstmt.executeQuery();) {
 			
 			
@@ -196,6 +197,36 @@ public List<Patron> getAllPatrons(){
 		return frozenPatrons;
 		
 	}
+
+@Override
+public Patron getPatron(String username, String password) {
+	// TODO Auto-generated method stub
+	try(PreparedStatement pstmt = conn.prepareStatement(PATRON_EXISTS);
+			) {
+		pstmt.setString(1, username);
+		pstmt.setString(2, password);
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			int id = rs.getInt("patron_id");
+			String firstName = rs.getString("first_name");
+			String lastName = rs.getString("last_name");
+			String userName = rs.getString("username");
+			String returnedPassword = rs.getString("password");
+			boolean frozen = rs.getBoolean("account_frozen");
+			
+			return new Patron( firstName, lastName, userName, returnedPassword,
+					frozen);
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return null;
+}
 
 	
 	
