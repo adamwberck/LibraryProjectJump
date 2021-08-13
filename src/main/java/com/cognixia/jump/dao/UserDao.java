@@ -7,6 +7,7 @@ import com.cognixia.jump.model.User;
 
 public interface UserDao {
 
+	public Patron getPatron(String username, String password);
 	public boolean updateUser(User user); 
 	public boolean addUser(Patron patron);
 	public boolean userExists(String username, String password);
