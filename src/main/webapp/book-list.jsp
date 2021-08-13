@@ -45,11 +45,6 @@ e.printStackTrace();}%>
 							<button class="btn btn-primary">Edit</button>
 						</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="delete?isbn=<c:out value='${ book.isbn }' />">
-						
-							<button class="btn btn-danger">Delete</button>
-							
-						</a>
 						
 					</td>
 					
